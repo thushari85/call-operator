@@ -2,8 +2,6 @@
 import { GET_CALLS, UPDATE_CUSTOMER } from "../actions/types";
 import { calls } from '../data';
 
-//const data = Object.values(calls)
-
 export default (state = calls, action) => {
     switch(action.type) {
         case GET_CALLS:
