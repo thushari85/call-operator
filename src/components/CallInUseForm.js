@@ -13,32 +13,33 @@ class CallInUseForm extends React.Component {
             label, 
             meta 
         } = fieldProps; 
-        //const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
+        const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
 
         return (
-            <div>
+            <div className={className}>
                 <label>{label}</label>
                 <input {...input}/>
+                {this.renderError(meta)}
             </div>
         )
     }
 
-    // renderError(meta) {
-    //     const {
-    //         error,
-    //         touched
-    //     } = meta;
+    renderError(meta) {
+        const {
+            error,
+            touched
+        } = meta;
 
-    //     if(touched && error) {
-    //         return (
-    //             <div className="ui error message">
-    //                 <div className="header">
-    //                     {error}
-    //                 </div>
-    //             </div>
-    //         )
-    //     }
-    // }
+        if(touched && error) {
+            return (
+                <div className="ui error message">
+                    <div className="header">
+                        {error}
+                    </div>
+                </div>
+            )
+        }
+    }
 
     renderInputWithButton = ({input, label, buttonLabel}) => {
         return (
@@ -65,7 +66,29 @@ class CallInUseForm extends React.Component {
     }
 }
 
+const validate = (formValues) => {
+    const errors = {};
+
+    if(!formValues.Title)
+        errors.Title = 'You must enter a title';
+    
+    if(!formValues.FirstName)
+        errors.FirstName = 'You must enter a First Name';
+
+    if(!formValues.Surname)
+        errors.Surname = 'You must enter a Surname';
+
+    if(!formValues.Mobile)
+        errors.Mobile = 'You must enter a Mobile';
+
+    if(!formValues.Home)
+    errors.Home = 'You must enter a Home';
+
+    return errors;
+}
+
 export default reduxForm({
-    form: 'CallInUse'
+    form: 'CallInUse',
+    validate: validate
 })(CallInUseForm)
 
